@@ -1,6 +1,6 @@
 <header>
 
-    <a href="#" class="logo"><i class="fas fa-utensils"></i>food</a>
+    <a href="#" class="logo"><i class=""><img src="./images/taun-logo.jpg" width="60" alt=""></i>TAUN</a>
 
     <div id="menu-bar" class="fas fa-bars"></div>
 
