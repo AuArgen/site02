@@ -8,25 +8,23 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Admin</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://use.fontawesome.com/addbab05b6.js"></script>
   </head>
   <body>
-  <form action="" method="post">
-    <div class="login-box">
-      <h1>Login</h1>
-      <div class="textbox">
-        <i class="fas fa-user"></i>
-        <input type="text" placeholder="Username">
-      </div>
-
-      <div class="textbox">
-        <i class="fas fa-lock"></i>
-        <input type="password" placeholder="Password">
-      </div>
-
-      <input type="button" class="btn" value="Sign in">
-    </div>
-  </form>
+    <?php include("../menu.php");?>
+    <ul class="container">
+      <li>'<div class="alert alert-danger" role="alert"> <i class="fas fa-cart-arrow-down">0</i></div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+      <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
+    </ul>
   </body>
 </html>
