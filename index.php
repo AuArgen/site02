@@ -18,24 +18,7 @@
 <body>
     
 <!-- header section starts  -->
-
-<header>
-
-    <a href="#" class="logo"><i class="fas fa-utensils"></i>food</a>
-
-    <div id="menu-bar" class="fas fa-bars"></div>
-
-    <nav class="navbar">
-        <a href="#home">home</a>
-        <a href="#speciality">speciality</a>
-        <a href="#popular">popular</a>
-        <a href="#gallery">gallery</a>
-        <a href="#review">review</a>
-        <a href="#order">order</a>
-    </nav>
-
-</header>
-
+    <?include("menu.php");?>
 <!-- header section ends -->
 
 <!-- home section starts  -->
@@ -419,31 +402,8 @@
 
 <!-- footer section  -->
 
-<section class="footer">
 
-    <div class="share">
-        <a href="#" class="btn">facebook</a>
-        <a href="#" class="btn">twitter</a>
-        <a href="#" class="btn">instagram</a>
-        <a href="#" class="btn">pinterest</a>
-        <a href="#" class="btn">linkedin</a>
-    </div>
-
-    <h1 class="credit"> created by <span> mr. web designer </span> | all rights reserved! </h1>
-
-</section>
-
-<!-- scroll top button  -->
-<a href="#home" class="fas fa-angle-up" id="scroll-top"></a>
-
-<!-- loader  -->
-<div class="loader-container">
-    <img src="images/loader.gif" alt="">
-</div>
-
-
-
-
+<?include("footer.php");?>
 
 
 

@@ -51,7 +51,8 @@ section{
   border:.2rem solid var(--red);
   color:var(--red);
   cursor: pointer;
-  font-size: 1.7rem;
+  font-size: 18px;
+  color: aqua;
   border-radius: .5rem;
   position: relative;
   overflow: hidden;
@@ -596,6 +597,7 @@ header .navbar a:hover{
   }
 
   header .navbar a{
+    width: 100%;
     margin: 1.5rem;
     padding:1.5rem;
     display: block;
