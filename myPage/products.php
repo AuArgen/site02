@@ -39,17 +39,17 @@
                     ?>
                 </select>
             </form>
+                    <br>
+<table class="container table table-dark table-hover">
+</table>
         </div>
-        <section class="popular" id="popular">
-            <div class="box-container row"></div>
-        </section>
     </div>
      <script src="../js/jquery.js"></script>
     <script src="./js/script.js"></script>
     <script>
         document.querySelector("#p").onchange = () => {
             pervod(document.querySelector("#p").value);
-            document.querySelector(".box-container").innerHTML = "";
+            document.querySelector(".table").innerHTML = "";
         }
         function pervod (n) {
             $.ajax({
@@ -59,7 +59,7 @@
                 data:{n},
                 dataType:'html',
                 success: function (data) {
-                    document.querySelector(".box-container").innerHTML = data;
+                    document.querySelector(".table").innerHTML = data;
                 }
             });
         }

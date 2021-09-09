@@ -12,5 +12,14 @@
         // var_dump($m);
         $conn -> query("UPDATE type SET aty = '$m[0]', text = '$m[1]', image = '$m[2]', image2 = '$m[3]' WHERE id = '$m[6]'");
         echo 1;
+    } else if ($_POST["n"] == 2) {
+        $m = array (
+            $_POST["name"], $_POST["text"],$_POST["x"], $_POST["y"],$_POST["f"], $_POST["f2"],$_POST["s"], $_POST["g"]
+        );
+        // var_dump($m);
+        if ($m[4] == "") $m[4] = $m[5];
+        else unlink('../.'.$m[5]);
+        $conn -> query("UPDATE tovar SET aty = '$m[0]', text = '$m[1]', image = '$m[4]',summa = '$m[6]',gram='$m[7]' WHERE id = '$m[3]' AND type = '$m[2]'");
+        echo 1;
     }
 ?>
