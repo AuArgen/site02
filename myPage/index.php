@@ -15,8 +15,8 @@
     <script src="https://use.fontawesome.com/addbab05b6.js"></script>
   </head>
   <body>
-    <?php include("../menu.php");?>
-    <ul class="container">
+    <?php include("./menu.php");?>
+    <ul class="home container">
       <li>'<div class="alert alert-danger" role="alert"> <i class="fas fa-cart-arrow-down">0</i></div>'</li>
       <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
       <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
@@ -26,5 +26,6 @@
       <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
       <li>'<div class="alert alert-success" role="alert">This is a success alert—check it out!</div>'</li>
     </ul>
+    <script src="./js/script.js"></script>
   </body>
 </html>

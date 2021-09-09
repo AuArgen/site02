@@ -10,10 +10,9 @@
 
     <!-- custom css file link  -->
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
-
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script> -->
 </head>
 <body>
     
@@ -43,58 +42,31 @@
 
 <section class="speciality container" id="speciality">
 
-    <h1 class="heading"> our <span>speciality</span> </h1>
+    <h1 class="heading"> Наш<span> категория</span> </h1>
 
     <div class="box-container row">
 
-        <div class="box">
-            <img class="image" src="images/s-img-1.jpg" alt="">
-            <div class="content">
-                <img src="images/s-1.png" alt="">
-                <h3>tasty burger</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore neque amet ipsa tenetur voluptates aperiam tempore libero labore aut.</p>
-            </div>
-        </div>
-        <div class="box">
-            <img class="image" src="images/s-img-2.jpg" alt="">
-            <div class="content">
-                <img src="images/s-2.png" alt="">
-                <h3>tasty pizza</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore neque amet ipsa tenetur voluptates aperiam tempore libero labore aut.</p>
-            </div>
-        </div>
-        <div class="box">
-            <img class="image" src="images/s-img-3.jpg" alt="">
-            <div class="content">
-                <img src="images/s-3.png" alt="">
-                <h3>cold ice-cream</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore neque amet ipsa tenetur voluptates aperiam tempore libero labore aut.</p>
-            </div>
-        </div>
-        <div class="box">
-            <img class="image" src="images/s-img-4.jpg" alt="">
-            <div class="content">
-                <img src="images/s-4.png" alt="">
-                <h3>cold drinks</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore neque amet ipsa tenetur voluptates aperiam tempore libero labore aut.</p>
-            </div>
-        </div>
-        <div class="box">
-            <img class="image" src="images/s-img-5.jpg" alt="">
-            <div class="content">
-                <img src="images/s-5.png" alt="">
-                <h3>tasty sweets</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore neque amet ipsa tenetur voluptates aperiam tempore libero labore aut.</p>
-            </div>
-        </div>
-        <div class="box">
-            <img class="image" src="images/s-img-6.jpg" alt="">
-            <div class="content">
-                <img src="images/s-6.png" alt="">
-                <h3>healty breakfast</h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda inventore neque amet ipsa tenetur voluptates aperiam tempore libero labore aut.</p>
-            </div>
-        </div>
+        <?php
+                include("./myPage/php/connect.php");
+                $r = $conn -> query("SELECT * FROM type");
+                if (mysqli_num_rows($r)) {
+                  $row = mysqli_fetch_array($r);
+                  do {
+                    echo '
+                    <div class="box">
+                    <a href="#">
+                      <img class="image" src="'.$row["image2"].'" style="width:100%; height:100%" alt="">
+                      <div class="content">
+                          <img src="'.$row["image"].'" height="50" alt="">
+                          <h3>'.$row["aty"].'</h3>
+                          <p>'.substr($row["text"],0,100).'</p>
+                      </div>
+                      </a>
+                    </div>
+                    ';
+                  } while($row = mysqli_fetch_array($r));
+                }
+              ?>
 
     </div>
 

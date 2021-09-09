@@ -13,7 +13,7 @@ body{
   left: 50%;
   transform: translate(-50%,-50%);
   color: white;
-  background:rgba(0, 0, 0, 0.7);
+  background:rgba(0, 0, 0, 0.7); 
 }
 .login-box h1{
   float: left;
