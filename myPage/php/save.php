@@ -15,7 +15,7 @@
         $s = $_POST["s"];
         $g = $_POST["g"];
         $x = $_POST["x"];
-        $conn -> query("INSERT INTO tovar (aty,text,image,summa,gram,type) VALUES('$name','$text','$f','$s','$g','$x')");
+        $conn -> query("INSERT INTO tovar (aty,text,image,summa,gram,type,popular,gallery) VALUES('$name','$text','$f','$s','$g','$x','','')");
         echo 1;
     } else if ($n == 3) {
         $name = $_POST["name"];
@@ -28,7 +28,7 @@
         $g1 = $_POST["g1"];
         $g2 = $_POST["g2"];
         $g3 = $_POST["g3"];
-        $conn -> query("INSERT INTO tovar_pizza (aty,text,image,kol,sena1,sena2,sena3,gram1,gram2,gram3) VALUES('$name','$text','$f','$x','$s1','$s2','$s3','$g1','$g2','$g3')");
+        $conn -> query("INSERT INTO tovar_pizza (aty,text,image,kol,sena1,sena2,sena3,gram1,gram2,gram3,popular,gallery) VALUES('$name','$text','$f','$x','$s1','$s2','$s3','$g1','$g2','$g3','','')");
         echo 1;
     }
 ?>

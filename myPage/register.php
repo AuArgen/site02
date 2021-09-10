@@ -25,7 +25,7 @@
         <input type="password" placeholder="Password" name="pass">
       </div>
 
-      <input type="submit" class="btn" value="Sign in" name="analize">
+      <input type="submit" class="btnz" value="Sign in" name="analize">
     </div>
   </form>
   <?php

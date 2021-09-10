@@ -41,7 +41,7 @@
     </div>
     <script src="../../js/jquery.js"></script>
     <script>
-               document.querySelector("#p").onchange = () => {
+        document.querySelector("#p").onchange = () => {
             pervod(document.querySelector("#p").value);
         }
         function select() {
@@ -109,7 +109,7 @@
                 }
             }
         } 
-                 function getImagePreview(event,n)
+        function getImagePreview(event,n)
             {
                 var image=URL.createObjectURL(event.target.files[0]);
                 var imagediv= document.getElementById(n+"");
@@ -147,6 +147,7 @@
                             data:{x,n,name,text,f,s,g},
                             dataType:'html',
                             success: function (data) {
+                                document.getElementById("p").value = "0";
                                 document.querySelector(".kat").innerHTML = "";
                                 if (data === "1") alert ("Продукт добавлена!!!");
                                 else  alert ("Ошибька!!!"+data);
@@ -174,6 +175,7 @@
                             data:{x,n,name,text,f,s1,s2,s3,g1,g2,g3},
                             dataType:'html',
                             success: function (data) {
+                                document.getElementById("p").value = "0";
                                 document.querySelector(".kat").innerHTML = "";
                                 if (data === "1") alert ("Продукт добавлена!!!");
                                 else  alert ("Ошибька!!!"+data);

@@ -8,5 +8,16 @@
         unlink('../.'.$fileI);
         unlink('../.'.$fileI2);
         echo 1;
+    } else if ($_POST["y"] == 2) {
+        $x = $_POST["x"];
+        $z = $_POST["z"];
+        $f = $_POST["f"];
+        if ($x == 6) {
+            $conn -> query("DELETE FROM tovar_pizza WHERE id = '$z'");
+            unlink('../.'.$f);
+        } else {
+            $conn -> query("DELETE FROM tovar WHERE id = '$z' AND type = '$x' ");
+            unlink('../.'.$f);
+        }
     }
-?>
+?> 
