@@ -52,11 +52,12 @@
             document.querySelector(".table").innerHTML = "";
         }
         function pervod (n) {
+            let x = 1;
             $.ajax({
                 url:'./php/sawProduct.php',
                 type:'POST',
                 cache:false,
-                data:{n},
+                data:{n,x},
                 dataType:'html',
                 success: function (data) {
                     document.querySelector(".table").innerHTML = data;

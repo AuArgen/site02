@@ -9,7 +9,7 @@
         <a href="./category.php">Категория</a>
         <a href="./products.php">Продукты</a>
         <a href="./popular.php">Популярные</a>
-        <a href="./gallery.php">Галеря</a>
+        <a href="./gallery.php">Галерея</a>
         <a href="#review">review</a>
         <a href="#order">order</a>
         <a href="#order"><form action="" method="post"> <button type="submit" class="" name="exit"><i class="fas fa-sign-out-alt"></i></button></form></a>

@@ -13,11 +13,12 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"> -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script> -->
+    <script src="https://use.fontawesome.com/addbab05b6.js"></script>
 </head>
 <body>
-    
+
 <!-- header section starts  -->
-    <?include("menu.php");?>
+    <?include("cart.php");include("menu.php");?>
 <!-- header section ends -->
 
 <!-- home section starts  -->
@@ -48,13 +49,17 @@
 
         <?php
                 include("./myPage/php/connect.php");
+                $mas = array();
                 $r = $conn -> query("SELECT * FROM type");
                 if (mysqli_num_rows($r)) {
                   $row = mysqli_fetch_array($r);
                   do {
+                    $mas = array (
+                        $row["id"] => ''.$row["aty"],
+                    );
                     echo '
                     <div class="box">
-                    <a href="#">
+                    <a href="#grbox" onclick = "sawMe('.$row["id"].')">
                       <img class="image" src="'.$row["image2"].'" style="width:100%; height:100%" alt="">
                       <div class="content">
                           <img src="'.$row["image"].'" height="50" alt="">
@@ -74,93 +79,41 @@
 
 <!-- speciality section ends -->
 
+<!-- products  starts-->
+<section class="popular grbox" id="grbox">
+
+</section>
+<!-- products  ends-->
+
 <!-- popular section starts  -->
 
 <section class="popular" id="popular">
 
-    <h1 class="heading"> most <span>popular</span> foods </h1>
+    <h1 class="heading"> самые <span>популярные</span> продукты </h1>
 
     <div class="box-container row">
-
-        <div class="box">
-            <span class="price"> $5 - $20 </span>
-            <img src="images/p-1.jpg" alt="">
-            <h3>tasty burger</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <a href="#" class="btn">order now</a>
-        </div>
-        <div class="box">
-            <span class="price"> $5 - $20 </span>
-            <img src="images/p-2.jpg" alt="">
-            <h3>tasty cakes</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <a href="#" class="btn">order now</a>
-        </div>
-        <div class="box">
-            <span class="price"> $5 - $20 </span>
-            <img src="images/p-3.jpg" alt="">
-            <h3>tasty sweets</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <a href="#" class="btn">order now</a>
-        </div>
-        <div class="box">
-            <span class="price"> $5 - $20 </span>
-            <img src="images/p-4.jpg" alt="">
-            <h3>tasty cupcakes</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <a href="#" class="btn">order now</a>
-        </div>
-        <div class="box">
-            <span class="price"> $5 - $20 </span>
-            <img src="images/p-5.jpg" alt="">
-            <h3>cold drinks</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <a href="#" class="btn">order now</a>
-        </div>
-        <div class="box">
-            <span class="price"> $5 - $20 </span>
-            <img src="images/p-6.jpg" alt="">
-            <h3>cold ice-cream</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <a href="#" class="btn">order now</a>
-        </div>
-
+        <?php 
+            $r = $conn -> query("SELECT * FROM popular");
+            if (mysqli_num_rows($r)) {
+                $row = mysqli_fetch_array($r);
+                do {
+                    echo '
+                        <div class="box">
+                            <span class="price"> '.$row["summa"].' - '.$row["gram"].'</span>
+                            <img src="'.$row["image"].'">
+                            <h3>'.$row["aty"].'</h3>
+                            <div class="stars">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="far fa-star"></i>
+                            </div>
+                            <a href="#" class="btn">order now</a>
+                        </div>';
+                } while($row = mysqli_fetch_array($r));
+            }
+        ?>
     </div>
 
 </section>
@@ -202,83 +155,26 @@
 
 <section class="gallery" id="gallery">
 
-    <h1 class="heading"> our food <span> gallery </span> </h1>
+    <h1 class="heading"> наша еды <span> галерея </span> </h1>
 
     <div class="box-container">
-
-        <div class="box">
-            <img src="images/g-1.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-2.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-3.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-4.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-5.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-6.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-7.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-8.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-        <div class="box">
-            <img src="images/g-9.jpg" alt="">
-            <div class="content">
-                <h3>tasty food</h3>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deleniti, ipsum.</p>
-                <a href="#" class="btn">ordern now</a>
-            </div>
-        </div>
-
+        <?php 
+            $r = $conn -> query("SELECT * FROM gallery");
+            if (mysqli_num_rows($r)) {
+                $row = mysqli_fetch_array($r);
+                do {
+                    echo '
+                        <div class="box">
+                            <img src="'.$row["image"].'" alt="">
+                            <div class="content">
+                                <h3>'.$row["aty"].'</h3>
+                                <p>'.$row["text"].'</p>
+                                <a href="#" class="btn">ordern now</a>
+                            </div>
+                        </div>';
+                } while($row = mysqli_fetch_array($r));
+            }
+        ?>
     </div>
 
 </section>
@@ -374,7 +270,6 @@
 
 <!-- footer section  -->
 
-
 <?include("footer.php");?>
 
 
@@ -394,7 +289,36 @@
 
 <!-- custom js file link  -->
 <script src="js/script.js"></script>
+<script src="js/jquery.js"></script>
+<script>
+    function sawMe(x) {
+         $.ajax({
+                url:'./sawMe.php',
+                type:'POST',
+                cache:false,
+                data:{x},
+                dataType:'html',
+                success: function (data) {
+                    document.querySelector(".grbox").innerHTML = data;
+                }
+            });
+    }
+    function size (s,g,i) {
+        document.querySelector(".price"+i+"").innerHTML = s+" - "+g;
+        document.querySelector(".size"+i+"").innerHTML = `<button class='btn' onclick = save('${s}','${g}',${i})>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button>`;
+    }
+    let x = 0;
+    function save (s,g,i) {
+        x++;
+        document.querySelector(".kal").innerHTML = x;
+    }
+    // let cart = 0;
+    function cart() {
+        document.querySelector(".cartWindow").classList.toggle("activeCart");
+        // alert("yes")
+    }
 
+</script>
 
 </body>
 </html>

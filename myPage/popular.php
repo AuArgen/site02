@@ -19,7 +19,7 @@
     <?php include("./menu.php");?>
     <div class="home ">
       <br>
-      <div class="text-center"><a href="./php/products.php"><button type="button" class="btn btn-outline-success" style="width:90%;font-size:20px">Добавить продукты +</button></a></div>
+      <div class="text-center"><a href="./php/productsAdds.php?type=1"><button type="button" class="btn btn-outline-success" style="width:90%;font-size:20px">Добавить популярные +</button></a></div>
       <br>  
       <div class="text-center container">
             <form action="" class="container form-control">
@@ -52,29 +52,30 @@
             document.querySelector(".table").innerHTML = "";
         }
         function pervod (n) {
+            let x = 2;
             $.ajax({
                 url:'./php/sawProduct.php',
                 type:'POST',
                 cache:false,
-                data:{n},
+                data:{n,x},
                 dataType:'html',
                 success: function (data) {
                     document.querySelector(".table").innerHTML = data;
                 }
             });
         }
-        function deletes (x,y) {
-            let z = y;
-            let f = document.getElementById(`files${z}`).value;
-            y = 2;
+        function deletes (x,i) {
+            let y = 3,
+                z = document.querySelector("#p").value;
+
             $.ajax({
                 url:'./php/delete.php',
                 type:'POST',
                 cache:false,
-                data:{x,y,z,f},
+                data:{x,y,z,i},
                 dataType:'html',
                 success: function (data) {
-                    pervod (x);
+                    pervod (z);
                 }
             });
         }

@@ -1,5 +1,6 @@
 <?php
-    if ($_POST["x"] == 1) {
+    $x = $_POST["x"];
+    if ($x == 1) {
         echo '
             <form action="" class="form-control p-5 fs-3" style="font-size:20px">
                 <input style="font-size:18px" required type="name" name="name" id="name" class="form-control fs-3" placeholder="Имя продукты"></input>
