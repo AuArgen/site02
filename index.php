@@ -64,7 +64,7 @@
                       <div class="content">
                           <img src="'.$row["image"].'" height="50" alt="">
                           <h3>'.$row["aty"].'</h3>
-                          <p>'.substr($row["text"],0,100).'</p>
+                          <p>'.$row["text"].'</p>
                       </div>
                       </a>
                     </div>
@@ -97,20 +97,35 @@
             if (mysqli_num_rows($r)) {
                 $row = mysqli_fetch_array($r);
                 do {
-                    echo '
-                        <div class="box">
-                            <span class="price"> '.$row["summa"].' - '.$row["gram"].'</span>
-                            <img src="'.$row["image"].'">
-                            <h3>'.$row["aty"].'</h3>
-                            <div class="stars">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
+                $img = $row["image"];
+                $aty = $row["aty"];
+                $text = $row["text"];
+                $id = $row["id"];
+                $sena = $row["summa"];
+                $gram = $row["gram"];
+                $x = $row["type"];
+                if ($x == 6) {
+                    $sena = $row["sena1"];
+                    $gram = $row["gram1"];
+                }
+                 echo "
+                        <div class='box'>
+                            <span class='price'> $sena - $gram</span>
+                            <img src='$img'>
+                            <h3>$aty</h3>
+                            <p>$text</p>
+                            <div class='stars'>
+                                <i class='fas fa-star'></i>
+                                <i class='fas fa-star'></i>
+                                <i class='fas fa-star'></i>
+                                <i class='fas fa-star'></i>
+                                <i class='far fa-star'></i>
                             </div>
-                            <a href="#" class="btn">order now</a>
-                        </div>';
+                            <button class='btn' onclick = popsave('$sena','$gram',$id)>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button>
+                            <input type='hidden' class='popaty$id' value='$aty'>
+                            <input type='hidden' class='poptype$id' value='$x'>
+                            <input type='hidden' class='popimg$id' value='$img'>
+                        </div>";
                 } while($row = mysqli_fetch_array($r));
             }
         ?>
@@ -163,15 +178,29 @@
             if (mysqli_num_rows($r)) {
                 $row = mysqli_fetch_array($r);
                 do {
-                    echo '
-                        <div class="box">
-                            <img src="'.$row["image"].'" alt="">
-                            <div class="content">
-                                <h3>'.$row["aty"].'</h3>
-                                <p>'.$row["text"].'</p>
-                                <a href="#" class="btn">ordern now</a>
+                    $img = $row["image"];
+                    $aty = $row["aty"];
+                    $text = $row["text"];
+                    $id = $row["id"];
+                    $x = $row["type"];
+                    $sena = $row["summa"];
+                    $gram = $row["gram"];
+                    if ($x == 6) {
+                        $sena = $row["sena1"];
+                        $gram = $row["gram1"];
+                    }
+                    echo "
+                        <div class='box'>
+                            <img src='$img' alt=''>
+                            <div class='content'>
+                                <h3>$aty</h3>
+                                <p>$text</p>
+                            <button class='btn' onclick = galsave('$sena','$gram',$id)>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button>
+                            <input type='hidden' class='galaty$id' value='$aty'>
+                            <input type='hidden' class='galtype$id' value='$x'>
+                            <input type='hidden' class='galimg$id' value='$img'>
                             </div>
-                        </div>';
+                        </div>";
                 } while($row = mysqli_fetch_array($r));
             }
         ?>
@@ -291,6 +320,7 @@
 <script src="js/script.js"></script>
 <script src="js/jquery.js"></script>
 <script>
+    sawCart();
     function sawMe(x) {
          $.ajax({
                 url:'./sawMe.php',
@@ -309,13 +339,464 @@
     }
     let x = 0;
     function save (s,g,i) {
-        x++;
-        document.querySelector(".kal").innerHTML = x;
+        let aty = document.querySelector(".aty"+i).value
+        let t = document.querySelector(".type"+i).value
+        let img = document.querySelector(".img"+i).value
+        let sname = aty;
+        if (t === '6') aty+=" -> "+g;
+        if (!localStorage.getItem("My_Site_Argen_Cart_Arrays_name")) {
+            aty = [aty];
+            s = [s];
+            g = [g];
+            t = [t];
+            kol = [1];
+            i = [i];
+            sname = [sname];
+            img = [img];
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(aty));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(sname));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(s));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(g));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(t));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(img));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(i));
+            sawCart();
+        } else {
+            let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+            let names = localStorage.getItem("My_Site_Argen_Cart_Arrays_sname");
+            let sena = localStorage.getItem("My_Site_Argen_Cart_Arrays_sena");
+            let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
+            let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
+            let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            let image = localStorage.getItem("My_Site_Argen_Cart_Arrays_img");
+            let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
+            names = JSON.parse(names);
+            image = JSON.parse(image);
+            name = JSON.parse(name);
+            sena = JSON.parse(sena);
+            gram = JSON.parse(gram);
+            type = JSON.parse(type);
+            kol = JSON.parse(kol);
+            id = JSON.parse(id);
+            let w = 0,ii;
+            for (let i = 0; i < name.length; i++) {
+                if (name[i] === aty) {
+                    w = 1;
+                    ii = i;
+                    // console.log (name.splice(i,1))
+                }
+            }
+            if (w) {
+                kol[ii]++;
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                sawCart();
+            } else {
+                names.push(sname);
+                image.push(img);
+                name.push(aty);
+                sena.push(s);
+                gram.push(g);
+                type.push(t);
+                kol.push(1);
+                id.push(i);
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(names));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(name));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(sena));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(gram));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(type));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(image));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(id));
+                sawCart();
+            }
+            // console.log(name,sena,gram,type,kol)
+        }
     }
     // let cart = 0;
     function cart() {
         document.querySelector(".cartWindow").classList.toggle("activeCart");
         // alert("yes")
+    }
+    function sawCart() {
+        if (localStorage.getItem("My_Site_Argen_Cart_Arrays_name")) {
+            let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+            let names = localStorage.getItem("My_Site_Argen_Cart_Arrays_sname");
+            let sena = localStorage.getItem("My_Site_Argen_Cart_Arrays_sena");
+            let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
+            let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
+            let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
+            names = JSON.parse(names);
+            name = JSON.parse(name);
+            sena = JSON.parse(sena);
+            gram = JSON.parse(gram);
+            type = JSON.parse(type);
+            kol = JSON.parse(kol);
+            id = JSON.parse(id);
+            let s = `<table border="1" id="customers"> 
+                        <tr> 
+                            <th style="text-align:center">№</th>
+                            <th style="text-align:center">Название</th>
+                            <th style="text-align:center">Цена-размер</th>
+                            <th style="text-align:center">Кол-во</th>
+                            <th style="text-align:center">Сумма</th>
+                            <th style="text-align:center">Отменить</th>
+                        </tr>
+                    `,
+                summa = 0,
+                kal = 0;
+            for (let i = 0; i < name.length; i++) {
+                let a = 0,b = "",c = sena[i], sany = 0;
+                for (let k = 0; k < c.length;k++) {
+                    let r = 0;
+                    for (let j = 0; j < 10; j++) {
+                        if (c[k] === ''+j) r++; 
+                    }
+                    if (r) b += c[k];
+                    else break;
+                }
+                sany = kol[i];
+                kal += +sany;
+                a = b*sany;
+                summa += a;
+                s += `
+                        <tr> 
+                            <td style="text-align:center">${i+1}</td>
+                            <td style="text-align:center">${names[i]}</td>
+                            <td style="text-align:center">${sena[i]} - ${gram[i]}</td>
+                            <td><input style="text-align:center; font-size:20px" min="1" class="inp${i}" type="number" oninput = "inpt(${i},'${name[i]}')" value="${kol[i]}"></td>
+                            <td style="text-align:center">${a}</td>
+                            <td><button class="btn" onclick="deletea('${name[i]}')">X</button></td>
+                        </tr>
+                `;
+            }
+            s += `<tr><td colspan="5" style="text-align:right">${summa}</td></tr></table>
+                    <div class="form">
+        <form action="" method = "post">
+            <div class="divRow">
+                <div class="divCol"><input type="name"placeholder="ФИО" name="name" id="name" required></div>
+                <div class="divCol"><input type="addres"placeholder="Адрес" name="adres" id="adres" required></div>
+            </div>
+            <div class="divRow">
+                <div class="divCol"><input type="tel" placeholder="Тел"name="tel" id="tel" required></div>
+                <div class="divCol">
+                    <input type="radio" name="radio" checked id="radio1"><label for="radio1" required>Курьер</label> 
+                    <input type="radio" name="radio" id="radio2"><label for="radio2" required>Такси</label> 
+                    <input type="radio" name="radio" id="radio3"><label for="radio3" required>Почта</label> 
+                </div>
+            </div>
+            <div class="divRow">
+                <br>
+                <button class = "" type="button" style="text-align:center" onclick = "oformit()"><span style="width:100%; text-align:center;">Оформить заказ</span></button>
+            </div>
+        </form>
+        </div>
+        <input type="hidden" id = "kal">
+            `;
+            document.querySelector(".main").innerHTML = s;
+            document.querySelector(".kal").innerHTML = kal;
+            document.querySelector("#kal").value = kal;
+            if (kal === 0) document.querySelector(".main").innerHTML = '<img src="./images/empty-cart.png" alt="">';
+        } else {document.querySelector(".main").innerHTML = `<img src="./images/empty-cart.png" alt="">`;}
+    }
+    // 
+    // 
+    // 
+    function oformit () {
+        let fio = document.querySelector("#name").value,
+            adres = document.querySelector("#adres").value,
+            tel = document.querySelector("#tel").value,
+            kal = document.querySelector("#kal").value,
+            radio,ids;
+        if (document.querySelector("#radio1").checked) radio = 'Курьер';
+        if (document.querySelector("#radio2").checked) radio = 'Такси';
+        if (document.querySelector("#radio3").checked) radio = 'Почта';
+        if (!adres || !tel || !fio) alert ("Заполните все поля!!!");
+        else {
+            // console.log (fio,adres,tel,radio,kal);
+            $.ajax({
+                    url:'./klient.php',
+                    type:'POST',
+                    cache:false,
+                    data:{fio,adres,tel,kal,radio},
+                    dataType:'html',
+                    success: function (data) {
+                        ids = data;
+                        let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+                        let names = localStorage.getItem("My_Site_Argen_Cart_Arrays_sname");
+                        let sena = localStorage.getItem("My_Site_Argen_Cart_Arrays_sena");
+                        let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
+                        let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
+                        let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+                        let image = localStorage.getItem("My_Site_Argen_Cart_Arrays_img");
+                        let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
+                        names = JSON.parse(names);
+                        image = JSON.parse(image);
+                        name = JSON.parse(name);
+                        sena = JSON.parse(sena);
+                        gram = JSON.parse(gram);
+                        type = JSON.parse(type);
+                        kol = JSON.parse(kol);
+                        id = JSON.parse(id);
+                        let w = 0,ii = name.length-1;
+
+                        for (let i = ii; i >= 0 ;i--) {
+                            let a = names[i],a2 = image[i], a3 = sena[i], a4 = gram[i], a5 = kol[i];
+                            $.ajax({
+                                    url:'./zakazy.php',
+                                    type:'POST',
+                                    cache:false,
+                                    data:{ids,a,a2,a3,a4,a5},
+                                    dataType:'html',
+                                    success: function (data) {
+                                        radio = data;
+                                    }
+                            });
+                            names.splice(i,1);
+                            image.splice(i,1);
+                            name.splice(i,1);
+                            type.splice(i,1);
+                            sena.splice(i,1);
+                            gram.splice(i,1);
+                            kol.splice(i,1);
+                            id.splice(i,1);
+                        }
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(names));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(image));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(name));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(sena));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(gram));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(type));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                        localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(id));
+                    }
+            });
+            // localStorage.clear();
+            alert ("Вы успешно оформили заказ ... Спасибо");
+            sawCart();
+        }
+    }
+    // 
+    // 
+    // 
+    function deletea (x) {
+            let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+            let names = localStorage.getItem("My_Site_Argen_Cart_Arrays_sname");
+            let sena = localStorage.getItem("My_Site_Argen_Cart_Arrays_sena");
+            let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
+            let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
+            let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            let image = localStorage.getItem("My_Site_Argen_Cart_Arrays_img");
+            let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
+            names = JSON.parse(names);
+            image = JSON.parse(image);
+            name = JSON.parse(name);
+            sena = JSON.parse(sena);
+            gram = JSON.parse(gram);
+            type = JSON.parse(type);
+            kol = JSON.parse(kol);
+            id = JSON.parse(id);
+            let w = 0,ii;
+            for (let i = 0; i < id.length; i++) {
+                if (name[i] === x) {
+                    w = 1;
+                    ii = i;
+                    // console.log (name.splice(i,1))
+                }
+            }
+            if (w) {
+                names.splice(ii,1);
+                image.splice(ii,1);
+                name.splice(ii,1);
+                type.splice(ii,1);
+                sena.splice(ii,1);
+                gram.splice(ii,1);
+                kol.splice(ii,1);
+                id.splice(ii,1);
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(names));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(image));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(name));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(sena));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(gram));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(type));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(id));
+                sawCart();
+            }
+    } 
+    function inpt (x,z) {
+        y = document.querySelector(".inp"+x).value
+        if ((+y) < 1) y = 1;
+        y = +y;
+        y = document.querySelector(".inp"+x).value = y;
+            let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+            let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            kol = JSON.parse(kol);
+            name = JSON.parse(name);
+            let w = 0,ii;
+            for (let i = 0; i < name.length; i++) {
+                if (name[i] === z) {
+                    w = 1;
+                    ii = i;
+                    // console.log (name.splice(i,1))
+                }
+            }
+            if (w) {
+                kol[ii] = y ;
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                sawCart();
+            }
+    }
+    function popsave (s,g,i) {
+        let aty = document.querySelector(".popaty"+i).value
+        let t = document.querySelector(".poptype"+i).value
+        let img = document.querySelector(".popimg"+i).value
+        let sname = aty;
+        if (t === '6') aty+=" -> "+g;
+        if (!localStorage.getItem("My_Site_Argen_Cart_Arrays_name")) {
+            aty = [aty];
+            s = [s];
+            g = [g];
+            t = [t];
+            kol = [1];
+            i = [i];
+            sname = [sname];
+            img = [img];
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(aty));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(sname));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(s));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(g));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(t));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(img));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(i));
+            sawCart();
+        } else {
+            let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+            let names = localStorage.getItem("My_Site_Argen_Cart_Arrays_sname");
+            let sena = localStorage.getItem("My_Site_Argen_Cart_Arrays_sena");
+            let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
+            let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
+            let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            let image = localStorage.getItem("My_Site_Argen_Cart_Arrays_img");
+            let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
+            names = JSON.parse(names);
+            image = JSON.parse(image);
+            name = JSON.parse(name);
+            sena = JSON.parse(sena);
+            gram = JSON.parse(gram);
+            type = JSON.parse(type);
+            kol = JSON.parse(kol);
+            id = JSON.parse(id);
+            let w = 0,ii;
+            for (let i = 0; i < name.length; i++) {
+                if (name[i] === aty) {
+                    w = 1;
+                    ii = i;
+                    // console.log (name.splice(i,1))
+                }
+            }
+            if (w) {
+                kol[ii]++;
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                sawCart();
+            } else {
+                names.push(sname);
+                image.push(img);
+                name.push(aty);
+                sena.push(s);
+                gram.push(g);
+                type.push(t);
+                kol.push(1);
+                id.push(i);
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(names));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(name));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(sena));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(gram));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(type));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(image));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(id));
+                sawCart();
+            }
+            // console.log(name,sena,gram,type,kol)
+        }
+    }
+    function galsave (s,g,i) {
+        let aty = document.querySelector(".galaty"+i).value
+        let t = document.querySelector(".galtype"+i).value
+        let img = document.querySelector(".galimg"+i).value
+        let sname = aty;
+        if (t === '6') aty+=" -> "+g;
+        if (!localStorage.getItem("My_Site_Argen_Cart_Arrays_name")) {
+            aty = [aty];
+            s = [s];
+            g = [g];
+            t = [t];
+            kol = [1];
+            i = [i];
+            sname = [sname];
+            img = [img];
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(aty));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(sname));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(s));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(g));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(t));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(img));
+            localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(i));
+            sawCart();
+        } else {
+            let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
+            let names = localStorage.getItem("My_Site_Argen_Cart_Arrays_sname");
+            let sena = localStorage.getItem("My_Site_Argen_Cart_Arrays_sena");
+            let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
+            let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
+            let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            let image = localStorage.getItem("My_Site_Argen_Cart_Arrays_img");
+            let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
+            names = JSON.parse(names);
+            image = JSON.parse(image);
+            name = JSON.parse(name);
+            sena = JSON.parse(sena);
+            gram = JSON.parse(gram);
+            type = JSON.parse(type);
+            kol = JSON.parse(kol);
+            id = JSON.parse(id);
+            let w = 0,ii;
+            for (let i = 0; i < name.length; i++) {
+                if (name[i] === aty) {
+                    w = 1;
+                    ii = i;
+                    // console.log (name.splice(i,1))
+                }
+            }
+            if (w) {
+                kol[ii]++;
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                sawCart();
+            } else {
+                names.push(sname);
+                image.push(img);
+                name.push(aty);
+                sena.push(s);
+                gram.push(g);
+                type.push(t);
+                kol.push(1);
+                id.push(i);
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sname",JSON.stringify(names));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_name",JSON.stringify(name));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_sena",JSON.stringify(sena));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_gram",JSON.stringify(gram));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_type",JSON.stringify(type));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_img",JSON.stringify(image));
+                localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(id));
+                sawCart();
+            }
+            // console.log(name,sena,gram,type,kol)
+        }
     }
 
 </script>

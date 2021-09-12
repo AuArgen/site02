@@ -39,8 +39,10 @@
                             <h4 style='font-size:16px;'>$text</h4>
                             $s<br>
                             <span class='price price$id' style='position:relative; padding:3px;top:0px; left:0px'>$sena - $gram </span>
-                            <p class='size$id'><button class='btn' onclick = save('$sena','$gram',$id)>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button></p>
-                            <input type='hidden' value=$aty>
+                            <p class='psize size$id' ><button class='btn' onclick = save('$sena','$gram',$id)>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button></p>
+                            <input type='hidden' class='aty$id' value='$aty'>
+                            <input type='hidden' class='type$id' value='6'>
+                            <input type='hidden' class='img$id' value='$img'>
                         </div>";
             } while ($row = mysqli_fetch_array($r));
             echo '</div>';
@@ -55,14 +57,23 @@
                 <div class="box-container">
             ';
             do {
-                 echo '
-                        <div class="box">
-                            <span class="price"> '.$row["summa"].' - '.$row["gram"].'</span>
-                            <img src="'.$row["image"].'">
-                            <h3>'.$row["aty"].'</h3>
-                            <p>'.$row["text"].'</p>
-                            <a href="#" class="btn">Добавить <i class="fa fa-cart-plus" aria-hidden="true"></i></a>
-                        </div>';
+                $img = $row["image"];
+                $aty = $row["aty"];
+                $text = $row["text"];
+                $id = $row["id"];
+                $sena = $row["summa"];
+                $gram = $row["gram"];
+                 echo "
+                        <div class='box'>
+                            <span class='price'> $sena - $gram</span>
+                            <img src='$img'>
+                            <h3>$aty</h3>
+                            <p>$text</p>
+                            <button class='btn' onclick = save('$sena','$gram',$id)>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button>
+                            <input type='hidden' class='aty$id' value='$aty'>
+                            <input type='hidden' class='type$id' value='$x'>
+                            <input type='hidden' class='img$id' value='$img'>
+                        </div>";
             } while ($row = mysqli_fetch_array($r));
             echo '</div>';
         }
