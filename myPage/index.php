@@ -20,7 +20,8 @@
     <?php include("./menu.php");?>
     <div class="home">
       <ul class="container p-5" id = "nova"></ul>
-      <ul class="container p-5" id = "last"></ul>
+      <ul class="container p-5" style="margin-top:-60px;" id = "last"></ul>
+      <ul class="container p-5 text-center" style="margin-top:-50px;" id = "button"><button class="btn btn-primary" style="font-size:20px" onclick = last()>Показать еще</button></ul>
     </div>
      <script src="../js/jquery.js"></script>
     <script src="./js/script.js"></script>
@@ -60,7 +61,7 @@
                         audio.play();
                     } else {
                       let lSkolegtor = localStorage.getItem("kolegtor_int_Argen_generation");
-                      if (lSkolegtor < kolegtor) {
+                      if (lSkolegtor < +kolegtor) {
                         localStorage.setItem("kolegtor_int_Argen_generation",kolegtor);
                         var audio = new Audio('./mp3/sms.mp3');
                         audio.play();
@@ -70,18 +71,23 @@
             });
         }
         nova();
+        let vybor = 0;
         function last() {
           let x = 5, n = 0;
             $.ajax({
                 url:'./php/sawProduct.php',
                 type:'POST',
                 cache:false,
-                data:{n,x},
+                data:{n,x,vybor},
                 dataType:'html',
                 success: function (data) {
-                    document.querySelector("#last").innerHTML = data;
+                    document.querySelector("#last").innerHTML += data;
+                    let t = document.querySelector("#vybor").value;
+                    // alert(t)
+                    if (+t <= vybor) document.querySelector("#button").style.display="none";
                 }
             });
+            vybor += 10;
         }
         last();
         let interval = setInterval(() => {

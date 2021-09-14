@@ -218,13 +218,17 @@
           }
     }
     if ($x == 5) {
-        $r = $conn -> query("SELECT * FROM klient WHERE reading = '' ORDER BY id DESC");
+        $vybor = $_POST["vybor"];
+        $r = $conn -> query("SELECT * FROM klient WHERE reading = ''");
+        $n = mysqli_num_rows($r);
+        echo '<input type="hidden" value="'.$n.'" id = "vybor">';
+        $r = $conn -> query("SELECT * FROM klient WHERE reading = '' ORDER BY id DESC LIMIT $vybor,10");
           $n = mysqli_num_rows($r);
           if ($n) {
             $row = mysqli_fetch_array($r);
             do {
               echo'
-                <li><a href= "./php/sms.php?id='.$row["id"].'"><div class="alert alert-success" role="alert">
+                <li style="margin-top:0px"><a href= "./php/sms.php?id='.$row["id"].'"><div class="alert alert-success" role="alert">
                   <div class="row p-2">
                     <div class="col-4">'.$row["aty"].'</div>
                     <div class="col-2">'.$row["tel"].'</div>

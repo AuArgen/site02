@@ -627,9 +627,10 @@
     } 
     function inpt (x,z) {
         y = document.querySelector(".inp"+x).value
-        if ((+y) < 1) y = 1;
+        if ((+y) < 1 && y !="") y = 1;
         y = +y;
         y = document.querySelector(".inp"+x).value = y;
+        if (y != "") {
             let name = localStorage.getItem("My_Site_Argen_Cart_Arrays_name");
             let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
             kol = JSON.parse(kol);
@@ -647,6 +648,7 @@
                 localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
                 sawCart();
             }
+        }
     }
     function popsave (s,g,i) {
         let aty = document.querySelector(".popaty"+i).value

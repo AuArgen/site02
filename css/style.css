@@ -807,6 +807,7 @@ header .navbar a:hover{
 
   #menu-bar{
     display: initial;
+    /* margin-right: -200px; */
   }
   .cartWindow .cartBlock .form .divRow {
     width: 100%;
