@@ -195,4 +195,46 @@
             }
         }
     }
+    if ($x == 4) {
+        $r = $conn -> query("SELECT * FROM klient WHERE reading = '1' ORDER BY id DESC");
+          $n = mysqli_num_rows($r);
+          echo '<li><div class="alert alert-danger text-center" role="alert"> <i class="fas fa-user position-relative" style="font-size:50px;"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:20px;">'.$n.'
+             </span><input type="hidden" value = "'.$n.'" id = "kolegtor"/></i></div></li>';
+          if ($n) {
+            $row = mysqli_fetch_array($r);
+            do {
+              echo'
+                <a href= "./php/sms.php?id='.$row["id"].'"><li><div class="alert alert-success" role="alert">
+                  <div class="row p-2">
+                    <div class="col-4">'.$row["aty"].'</div>
+                    <div class="col-2">'.$row["tel"].'</div>
+                    <div class="col-3">'.$row["adres"].'</div>
+                    <div class="col-1"><span class="badge bg-primary text-light">'.$row["kol"].'</span></div>
+                    <div class="col-2">'.$row["date"].'</div>
+                  </div>
+                </div></li></a>
+              ';
+            } while ($row = mysqli_fetch_array($r));
+          }
+    }
+    if ($x == 5) {
+        $r = $conn -> query("SELECT * FROM klient WHERE reading = '' ORDER BY id DESC");
+          $n = mysqli_num_rows($r);
+          if ($n) {
+            $row = mysqli_fetch_array($r);
+            do {
+              echo'
+                <li><a href= "./php/sms.php?id='.$row["id"].'"><div class="alert alert-success" role="alert">
+                  <div class="row p-2">
+                    <div class="col-4">'.$row["aty"].'</div>
+                    <div class="col-2">'.$row["tel"].'</div>
+                    <div class="col-3">'.$row["adres"].'</div>
+                    <div class="col-1"><span class="badge bg-primary text-light"></span></div>
+                    <div class="col-2">'.$row["date"].'</div>
+                  </div>
+                </div></a></li>
+              ';
+            } while ($row = mysqli_fetch_array($r));
+          }
+    }
 ?>

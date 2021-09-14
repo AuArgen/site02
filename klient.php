@@ -5,7 +5,7 @@
     $tel = $_POST["tel"];
     $radio = $_POST["radio"];
     $kol = $_POST["kal"];
-    $conn -> query("INSERT INTO klient (aty,adres,tel,radio,kol,reading) VALUES ('$fio','$adres','$tel','$radio','$kol','1')");
+    $conn -> query("INSERT INTO klient (aty,adres,tel,radio,kol,reading,date) VALUES ('$fio','$adres','$tel','$radio','$kol','1',NOW())");
     $r = $conn -> query("SELECT * FROM klient ORDER BY id DESC LIMIT 1");
     if (mysqli_num_rows($r)) {
         $row = mysqli_fetch_array ($r);
