@@ -76,5 +76,11 @@
                 }
             }
         }
+
+    } else if ($n == 5) {
+        $name = $_POST["name"];
+        $otzyv = $_POST["otzyv"];
+        $conn -> query("INSERT INTO otzyv (aty,text,ifElse) VALUES('$name','$otzyv','')");
+        echo 1;
     }
 ?>

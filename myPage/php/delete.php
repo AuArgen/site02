@@ -46,4 +46,13 @@
             $conn -> query("UPDATE tovar SET gallery = '' WHERE type = '$z' AND id = '$i'");
         }
     }
+    if ($y == 5) {
+        $x = $_POST["x"];
+        $conn -> query("DELETE FROM otzyv WHERE id = '$x'");
+    }
+    if ($y == 6) {
+        $x = $_POST["x"];
+        $conn -> query("DELETE FROM klient WHERE id = '$x'");
+        $conn -> query("DELETE FROM zakazy WHERE id = '$x'");
+    }
 ?> 

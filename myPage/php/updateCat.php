@@ -52,6 +52,8 @@
     <script src="../../js/jquery.js"></script>
     <script>
         let file = "", file2 = "",s = 0,ss = 0;
+        document.querySelector("#menuName2").style.color = "green";
+        document.querySelector("#menuName2").style.borderBottom = "2px solid red";
          function getImagePreview(event,n)
             {
                 var image=URL.createObjectURL(event.target.files[0]);

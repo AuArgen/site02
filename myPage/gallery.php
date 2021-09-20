@@ -47,6 +47,8 @@
      <script src="../js/jquery.js"></script>
     <script src="./js/script.js"></script>
     <script>
+        document.querySelector("#menuName5").style.color = "green";
+        document.querySelector("#menuName5").style.borderBottom = "2px solid red";
         document.querySelector("#p").onchange = () => {
             pervod(document.querySelector("#p").value);
             document.querySelector(".table").innerHTML = "";

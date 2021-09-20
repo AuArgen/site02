@@ -18,7 +18,7 @@
 <body>
 
 <!-- header section starts  -->
-    <?include("cart.php");include("menu.php");?>
+    <?php include("cart.php");include("menu.php");?>
 <!-- header section ends -->
 
 <!-- home section starts  -->
@@ -28,7 +28,6 @@
     <div class="content">
         <h3>food made with love</h3>
         <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus tempore temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati unde porro nostrum ipsam itaque impedit incidunt rem quisquam eos!</p>
-        <a href="#" class="btn">order now</a>
     </div>
 
     <div class="image">
@@ -81,8 +80,13 @@
 
 <!-- products  starts-->
 <section class="popular grbox" id="grbox">
-
+                <h1 style="width:100%; text-align:center; font-size:3rem; color:red">Товары</h1>
+                <br>
+                <div class="box-container grbox2"></div>
 </section>
+<div class="buttonDale" style="width:100%; text-align:center">
+                <button style="width:250px; padding:5px; border:1px solid black; background:white;text-align:center; font-size:25px;border-radius:15px; cursor:pointer;" onclick="sawAuto()">Показать еще</button>
+</div>
 <!-- products  ends-->
 
 <!-- popular section starts  -->
@@ -139,25 +143,25 @@
 
 <div class="step-container">
 
-    <h1 class="heading">how it <span>works</span></h1>
+    <h1 class="heading">как это <span>работает</span></h1>
 
     <section class="steps">
 
         <div class="box">
             <img src="images/step-1.jpg" alt="">
-            <h3>choose your favorite food</h3>
+            <h3>выберите свою любимую еду</h3>
         </div>
         <div class="box">
             <img src="images/step-2.jpg" alt="">
-            <h3>free and fast delivery</h3>
+            <h3>бесплатная и быстрая доставка</h3>
         </div>
         <div class="box">
             <img src="images/step-3.jpg" alt="">
-            <h3>easy payments methods</h3>
+            <h3>простые способы оплаты</h3>
         </div>
         <div class="box">
             <img src="images/step-4.jpg" alt="">
-            <h3>and finally, enjoy your food</h3>
+            <h3>и, наконец, наслаждайтесь едой</h3>
         </div>
     
     </section>
@@ -214,47 +218,32 @@
 
 <section class="review" id="review">
 
-    <h1 class="heading"> our customers <span>reviews</span> </h1>
+    <h1 class="heading"> новый <span>отзывы</span> </h1>
 
     <div class="box-container">
-
-        <div class="box">
-            <img src="images/pic1.png" alt="">
-            <h3>john deo</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti delectus, ducimus facere quod ratione vel laboriosam? Est, maxime rem. Itaque.</p>
-        </div>
-        <div class="box">
-            <img src="images/pic2.png" alt="">
-            <h3>john deo</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti delectus, ducimus facere quod ratione vel laboriosam? Est, maxime rem. Itaque.</p>
-        </div>
-        <div class="box">
-            <img src="images/pic3.png" alt="">
-            <h3>john deo</h3>
-            <div class="stars">
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
-                <i class="far fa-star"></i>
-            </div>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corrupti delectus, ducimus facere quod ratione vel laboriosam? Est, maxime rem. Itaque.</p>
-        </div>
-
+        <?php
+            $r = $conn -> query("SELECT * FROM otzyv WHERE ifElse = '1' ORDER BY id DESC"); 
+            $n = mysqli_num_rows($r);
+            if ($n) {
+                $row = mysqli_fetch_array($r);
+                do {
+                echo'
+                   <div class="box">
+                        <img src="images/imgAva.png" alt="">
+                        <h3>'.$row["aty"].'</h3>
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                        <p>'.$row["text"].'</p>
+                    </div>
+                ';
+                } while ($row = mysqli_fetch_array($r));
+            }
+        ?>
     </div>
 
 </section>
@@ -265,7 +254,7 @@
 
 <section class="order" id="order">
 
-    <h1 class="heading"> <span>order</span> now </h1>
+    <h1 class="heading">написать <span>отзывы</span></h1>
 
     <div class="row">
         
@@ -276,18 +265,11 @@
         <form action="">
 
             <div class="inputBox">
-                <input type="text" placeholder="name">
-                <input type="email" placeholder="email">
+                <input type="text" placeholder="Имя и фамилия" id = "atys" required>
             </div>
+            <textarea placeholder="Коментарий" name="" id="text" cols="30" rows="10" maxlength="200" required></textarea>
 
-            <div class="inputBox">
-                <input type="number" placeholder="number">
-                <input type="text" placeholder="food name">
-            </div>
-
-            <textarea placeholder="address" name="" id="" cols="30" rows="10"></textarea>
-
-            <input type="submit" value="order now" class="btn">
+            <input type="button" value="Отправить" class="btn btnOtzyv">
 
         </form>
 
@@ -320,6 +302,29 @@
 <script src="js/script.js"></script>
 <script src="js/jquery.js"></script>
 <script>
+    document.querySelector(".btnOtzyv").onclick = () => {
+        let name = document.querySelector("#atys").value
+        let otzyv = document.querySelector("#text").value
+        if (!name || !otzyv) alert("Для отправка отзыв надо запольнит все поле!");
+        else {
+            let n = 5
+            $.ajax({
+                url:'./myPage/php/save.php',
+                type:'POST',
+                cache:false,
+                data:{n,name,otzyv},
+                dataType:'html',
+                success: function (data) {
+                    if (data == 1) {
+                        alert("Спосибо ваша отзыв сохранен!!");
+                        document.querySelector("#atys").value = ''
+                        document.querySelector("#text").value = ''
+                    }
+                    else alert (data)
+                }
+            });
+        }
+    }
     sawCart();
     function sawMe(x) {
          $.ajax({
@@ -333,6 +338,27 @@
                 }
             });
     }
+    let dale1 = 0, dale2 = 0;
+    function sawAuto() {
+        let x = -1;
+         $.ajax({
+                url:'./sawMe.php',
+                type:'POST',
+                cache:false,
+                data:{x,dale1,dale2},
+                dataType:'html',
+                success: function (data) {
+                    document.querySelector(".grbox2").innerHTML += data;
+                    var ty = document.querySelector("#tovarsLength").value;
+                    // alert(ty)
+                    if (+ty <= dale1+dale2) document.querySelector(".buttonDale").style.display = "none";
+                }
+            });
+        dale1 += 6;
+        dale2 += 2;
+        // alert(dale1)
+    }
+    sawAuto ();
     function size (s,g,i) {
         document.querySelector(".price"+i+"").innerHTML = s+" - "+g;
         document.querySelector(".size"+i+"").innerHTML = `<button class='btn' onclick = save('${s}','${g}',${i})>Добавить <i class='fa fa-cart-plus' aria-hidden='true'></i></button>`;
@@ -426,24 +452,17 @@
             let gram = localStorage.getItem("My_Site_Argen_Cart_Arrays_gram");
             let type = localStorage.getItem("My_Site_Argen_Cart_Arrays_type");
             let kol = localStorage.getItem("My_Site_Argen_Cart_Arrays_kol");
+            let image = localStorage.getItem("My_Site_Argen_Cart_Arrays_img");
             let id = localStorage.getItem("My_Site_Argen_Cart_Arrays_id");
             names = JSON.parse(names);
+            image = JSON.parse(image);
             name = JSON.parse(name);
             sena = JSON.parse(sena);
             gram = JSON.parse(gram);
             type = JSON.parse(type);
             kol = JSON.parse(kol);
             id = JSON.parse(id);
-            let s = `<table border="1" id="customers"> 
-                        <tr> 
-                            <th style="text-align:center">№</th>
-                            <th style="text-align:center">Название</th>
-                            <th style="text-align:center">Цена-размер</th>
-                            <th style="text-align:center">Кол-во</th>
-                            <th style="text-align:center">Сумма</th>
-                            <th style="text-align:center">Отменить</th>
-                        </tr>
-                    `,
+            let s = '';
                 summa = 0,
                 kal = 0;
             for (let i = 0; i < name.length; i++) {
@@ -461,17 +480,22 @@
                 a = b*sany;
                 summa += a;
                 s += `
-                        <tr> 
-                            <td style="text-align:center">${i+1}</td>
-                            <td style="text-align:center">${names[i]}</td>
-                            <td style="text-align:center">${sena[i]} - ${gram[i]}</td>
-                            <td><input style="text-align:center; font-size:20px" min="1" class="inp${i}" type="number" oninput = "inpt(${i},'${name[i]}')" value="${kol[i]}"></td>
-                            <td style="text-align:center">${a}</td>
-                            <td><button class="btn" onclick="deletea('${name[i]}')">X</button></td>
-                        </tr>
+                        <div class = "cartDiv"> 
+                            <div class="img">
+                                <img src = "${image[i]}" alt = "${names[i]}" width="150">
+                            </div>
+                            <div class = "nameSumma">
+                                <p style="text-align:center">${names[i]}</p>
+                                <p style="text-align:center">${a}</p>
+                            </div>
+                            <div class="deleteInput">
+                                <p><input style="text-align:center; font-size:20px" min="1" class="inp${i}" type="number" onchange = "inpt(${i},'${name[i]}')" value="${kol[i]}"></p>
+                                <p><button class="btn" onclick="deletea('${name[i]}')">X</button></p>
+                            </div>
+                        </div>
                 `;
             }
-            s += `<tr><td colspan="5" style="text-align:right">${summa}</td></tr></table>
+            s += `<div class="summaZakaz"><h3>Сумма заказа: ${summa}</h3></div>
                     <div class="form">
         <form action="" method = "post">
             <div class="divRow">

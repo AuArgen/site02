@@ -18,7 +18,12 @@
   </head>
   <body>
     <?php include("./menu.php");?>
-    <div class="home">
+    <div class="home container" style="background:white;">
+      <div class="container"> 
+        <h3 style="margin-top:20px; background:#d7d3d2; text-align:center; padding:10px; font-size:25px;">Общая статистика</h3>
+        <div class="ob row"></div>
+      </div>
+      <h3 style="margin-top:20px; background:#d7d3d2; text-align:center; padding:10px; font-size:25px;" class="container">Заказы</h3>
       <ul class="container p-5" id = "nova"></ul>
       <ul class="container p-5" style="margin-top:-60px;" id = "last"></ul>
       <ul class="container p-5 text-center" style="margin-top:-50px;" id = "button"><button class="btn btn-primary" style="font-size:20px" onclick = last()>Показать еще</button></ul>
@@ -26,6 +31,8 @@
      <script src="../js/jquery.js"></script>
     <script src="./js/script.js"></script>
     <script>
+      document.querySelector("#menuName1").style.color = "green";
+      document.querySelector("#menuName1").style.borderBottom = "2px solid red";
         // document.querySelector("#p").onchange = () => {
         //     pervod(document.querySelector("#p").value);
         //     document.querySelector(".table").innerHTML = "";
@@ -53,22 +60,9 @@
                 dataType:'html',
                 success: function (data) {
                     document.querySelector("#nova").innerHTML = data;
-                    // alert("Yes");
-                    let kolegtor = document.querySelector("#kolegtor").value;
-                    if (!localStorage.getItem("kolegtor_int_Argen_generation")) {
-                      localStorage.setItem("kolegtor_int_Argen_generation",kolegtor);
-                        var audio = new Audio('./mp3/sms.mp3');
-                        audio.play();
-                    } else {
-                      let lSkolegtor = localStorage.getItem("kolegtor_int_Argen_generation");
-                      if (lSkolegtor < +kolegtor) {
-                        localStorage.setItem("kolegtor_int_Argen_generation",kolegtor);
-                        var audio = new Audio('./mp3/sms.mp3');
-                        audio.play();
-                      } else localStorage.setItem("kolegtor_int_Argen_generation",kolegtor);
-                    }
                 }
             });
+            ob();
         }
         nova();
         let vybor = 0;
@@ -90,9 +84,22 @@
             vybor += 10;
         }
         last();
-        let interval = setInterval(() => {
+        let intervals = setInterval(() => {
           nova();
-        }, 5000);
+        }, 2000);
+        function ob() {
+          let x = 10,n = 0;
+           $.ajax({
+                url:'./php/sawProduct.php',
+                type:'POST',
+                cache:false,
+                data:{x,n},
+                dataType:'html',
+                success: function (data) {
+                    document.querySelector(".ob").innerHTML = data;
+                }
+            });
+        }
     </script>
   </body>
 </html>

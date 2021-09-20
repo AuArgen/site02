@@ -92,7 +92,7 @@ header{
   align-items: center;
   justify-content: space-between;
   background:#fff;
-  padding:0rem 9%;
+  padding:0rem 2%;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);
 }
 
@@ -110,7 +110,7 @@ header .logo i{
   color:var(--red);
 }
 header .navbar {
-  margin-right: -150px;
+  margin-right: -350px;
 } 
 header .navbar a{
   font-size: 2rem;
@@ -268,7 +268,7 @@ header .navbar a:hover{
 .popular .box-container .box img{
   height:25rem;
   object-fit: cover;
-  width:90%;
+  width:100%;
   border-radius: .5rem;
 }
 
@@ -392,9 +392,12 @@ header .navbar a:hover{
 
 .review .box-container{
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  /* flex-wrap: wrap; */
+  justify-content: start;
   gap:1.5rem;
+  overflow-x:auto;
+  max-width: 100%;
+  /* border: 1px solid black; */
 }
 
 .review .box-container .box{
@@ -404,7 +407,8 @@ header .navbar a:hover{
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.3);
   border-radius: .5rem;
   /* flex:1 1 30rem; */
-  width: 23%;
+  min-width: 250px;
+  max-width: 250px;
   background:#333;
   margin-top: 6rem;
 }
@@ -419,7 +423,7 @@ header .navbar a:hover{
 }
 
 .review .box-container .box h3{
-  font-size: 2.5rem;
+  font-size: 2rem;
   color:#fff;
   padding:.5rem 0;
 }
@@ -520,9 +524,21 @@ header .navbar a:hover{
   position: fixed;
   top:-120%;
   right:2rem;
-  padding:.5rem 1.5rem;
+  padding:.5rem 2rem;
   font-size: 4rem;
   background:var(--red);
+  color:#fff;
+  border-radius: .5rem;
+  transition: 1s linear;
+  z-index: 1000;
+}
+#fixed{
+  position: fixed;
+  top:70%;
+  right:2rem;
+  padding:.5rem 1.5rem;
+  font-size: 4rem;
+  background:green;
   color:#fff;
   border-radius: .5rem;
   transition: 1s linear;
@@ -573,7 +589,7 @@ header .navbar a:hover{
   width: 70%;
   height: 100vh;
   /* overflow: hidden; */
-  border-radius: 15px;
+  /* border-radius: 15px; */
   position: relative;
   overflow-y: auto;
   display: flex;
@@ -594,7 +610,7 @@ header .navbar a:hover{
   z-index: 999;
   /* position: absolute; */
 }
-.cartWindow .cartBlock .header h3 {
+.cartWindow .cartBlock .header h1 {
   /* margin-left: 100px; */
   width: 100%;
   text-align: center;
@@ -660,16 +676,18 @@ header .navbar a:hover{
   width: 100%;
   display: flex;
   margin-top: 5px;
+  justify-content: center;
 }
 .cartWindow .cartBlock .form .divRow button {
-  width: 100%;
+  /* width: 100%; */
   display: flex;
   margin-top: 5px;
-  background:rgb(65, 247, 228);
+  background:rgb(216, 26, 42);
   text-align: center;
   border: 1px solid white;
   border-radius: 10px;
-  padding: 5px;
+  padding: 10px;
+  color: #eee;
   font-size: 20px;
   cursor: pointer;
 }
@@ -723,26 +741,63 @@ header .navbar a:hover{
   border-collapse: collapse;
   width: 100%;
 }
-
-#customers td, #customers th {
-  border: 1px solid #ddd;
-  padding: 8px;
+.cartDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: 2px solid rgb(104, 102, 102);
+  padding: 2px;
+  margin-top: 5px;
+  border-radius: 10px;
 }
-
-#customers tr:nth-child(even){background-color: #f2f2f2;}
-
-#customers tr:hover {background-color: #ddd;}
-
-#customers th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
+.cartDiv .nameSumma {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+.cartDiv .nameSumma p:nth-child(2){ 
+  background: rgb(107, 207, 8);
+  color: #eee;
+  padding: 5px 10px;
+}
+.cartDiv .deleteInput {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+}
+.cartDiv p {
+  margin-top: 5px;
+}
+.cartDiv .deleteInput button {
+  padding: 2px 10px;
+}
+.cartDiv .deleteInput input {
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 5px;
+  max-width: 100px;
+}
+.summaZakaz {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+}
+@media only screen  and (max-width:1200px){
+  header .navbar {
+    margin-right: -200px;
+  } 
+  
 }
 @media(max-width:991px){
+  header .navbar {
+     margin-right: -100px;
+  } 
   .cartWindow .cartBlock {
     width: 100%;
+    padding: 0px;
   }
   html{
     font-size: 55%;
@@ -807,7 +862,7 @@ header .navbar a:hover{
 
   #menu-bar{
     display: initial;
-    /* margin-right: -200px; */
+    margin-right: -400px;
   }
   .cartWindow .cartBlock .form .divRow {
     width: 100%;
@@ -882,16 +937,28 @@ header .navbar a:hover{
 }
 }
 
+@media only screen and(max-width:668px){
+    #menu-bar{
+    display: initial;
+    margin-right: -100px;
+  }
+}
+
 @media only screen and (max-width:450px){
   .cartWindow {
     padding: 10px;
   }
+    #menu-bar{
+    display: initial;
+    margin-right: -100px;
+  }
   .cartWindow .cartBlock {
     background: white;
-    width: 95%;
+    width: 100%;
     height: 100vh;
     overflow: hidden;
     border-radius: 15px;
+    padding: 0px;
   }
 
   html{

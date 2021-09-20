@@ -44,11 +44,18 @@
     </div>
     <script src="../../js/jquery.js"></script>
     <script>
+        <?php if ($type == 1) {
+            echo '      document.querySelector("#menuName4").style.color = "green";
+                        document.querySelector("#menuName4").style.borderBottom = "2px solid red";';
+        } else {
+         echo '         document.querySelector("#menuName5").style.color = "green";
+                        document.querySelector("#menuName5").style.borderBottom = "2px solid red";';
+        }?>
         document.querySelector("#p").onchange = () => {
             pervod(document.querySelector("#p").value);
         }
         function pervod (n) {
-                let x = <?echo $type;?>+"";
+                let x = <?php echo $type;?>+"";
                  $.ajax({
                     url:'./addsProduct.php',
                     type:'POST',
@@ -61,7 +68,7 @@
                 });
         }
         function adds (id) {
-            let t = <?echo $type;?>+"",
+            let t = <?php echo $type;?>+"",
                 x = document.querySelector("#p").value,
                 n = 4;
              $.ajax({

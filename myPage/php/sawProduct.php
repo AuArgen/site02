@@ -198,27 +198,24 @@
     if ($x == 4) {
         $r = $conn -> query("SELECT * FROM klient WHERE reading = '1' ORDER BY id DESC");
           $n = mysqli_num_rows($r);
-          echo '<li><div class="alert alert-danger text-center" role="alert"> <i class="fas fa-user position-relative" style="font-size:50px;"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size:20px;">'.$n.'
-             </span><input type="hidden" value = "'.$n.'" id = "kolegtor"/></i></div></li>';
+          echo '<input type="hidden" value = "'.$n.'" id = "kolegtor"/>';
           if ($n) {
             $row = mysqli_fetch_array($r);
             do {
-              echo'
-                <a href= "./php/sms.php?id='.$row["id"].'"><li><div class="alert alert-success" role="alert">
-                  <div class="row p-2">
-                    <div class="col-4">'.$row["aty"].'</div>
-                    <div class="col-2">'.$row["tel"].'</div>
-                    <div class="col-3">'.$row["adres"].'</div>
-                    <div class="col-1"><span class="badge bg-primary text-light">'.$row["kol"].'</span></div>
-                    <div class="col-2">'.$row["date"].'</div>
+             echo'
+                <a href= "./php/sms.php?id='.$row["id"].'">
+                  <div class="row p-2" style="border-bottom:1px solid gray; color:black; ">
+                    <div class="col-4" style="font-size:18px">Заказ №  '.$n--.' <span style="color:red;font-weight: bold;">Не обработан</span></div>
                   </div>
-                </div></li></a>
+                </a>
               ';
             } while ($row = mysqli_fetch_array($r));
           }
     }
     if ($x == 5) {
         $vybor = $_POST["vybor"];
+        $r = $conn -> query("SELECT * FROM klient");
+        $nn = mysqli_num_rows($r) - $vybor;
         $r = $conn -> query("SELECT * FROM klient WHERE reading = ''");
         $n = mysqli_num_rows($r);
         echo '<input type="hidden" value="'.$n.'" id = "vybor">';
@@ -228,17 +225,81 @@
             $row = mysqli_fetch_array($r);
             do {
               echo'
-                <li style="margin-top:0px"><a href= "./php/sms.php?id='.$row["id"].'"><div class="alert alert-success" role="alert">
-                  <div class="row p-2">
-                    <div class="col-4">'.$row["aty"].'</div>
-                    <div class="col-2">'.$row["tel"].'</div>
-                    <div class="col-3">'.$row["adres"].'</div>
-                    <div class="col-1"><span class="badge bg-primary text-light"></span></div>
-                    <div class="col-2">'.$row["date"].'</div>
+                <a href= "./php/sms.php?id='.$row["id"].'">
+                  <div class="row p-2" style="border-bottom:1px solid gray; color:black; ">
+                    <div class="col-4" style="font-size:18px">Заказ №  '.$nn--.' <span style="color:green;font-weight: bold;">Обработан</span></div>
                   </div>
-                </div></a></li>
+                </a>
               ';
             } while ($row = mysqli_fetch_array($r));
           }
+    }
+    if ($x == 6) {
+        $r = $conn -> query("SELECT * FROM klient WHERE reading = '1' ORDER BY id DESC");
+        echo mysqli_num_rows($r);
+    }
+    if ($x == 7) {
+        $r = $conn -> query("SELECT * FROM otzyv WHERE ifElse = '' ORDER BY id DESC"); 
+        $n = mysqli_num_rows($r);
+          if ($n) {
+            $row = mysqli_fetch_array($r);
+            echo'
+                <div class="btn btn-primary" style="font-size:20px; width:100%">
+                    Новвые
+                </div>
+            ';
+            do {
+              echo'
+                <li style="margin-top:0px"><div class="alert alert-success">
+                  <div class="row p-2">
+                    <div class="col-1">'.$n--.'</div>
+                    <div class="col-2">'.$row["aty"].'</div>
+                    <div class="col-7">'.$row["text"].'...</div>
+                    <div class="col-1"><button class="btn btn-success" onclick="adds('.$row["id"].')" style="font-size:18px;">+</button></div>
+                    <div class="col-1"><button class="btn btn-danger" onclick="deletes('.$row["id"].',2)" style="font-size:18px;">&times;</button></div>
+                  </div>
+                </div></li>
+              ';
+            } while ($row = mysqli_fetch_array($r));
+          }
+    }
+    if ($x == 8) {
+        $r = $conn -> query("SELECT * FROM otzyv WHERE ifElse = '1' ORDER BY id DESC"); 
+        $n = mysqli_num_rows($r);
+          if ($n) {
+            $row = mysqli_fetch_array($r);
+            echo '
+                <div class="btn btn-warning" style="font-size:20px; width:100%">
+                    Добавленные
+                </div>
+                </br>
+            ';
+            do {
+              echo'
+                <li style="margin-top:0px"><div class="alert alert-success">
+                  <div class="row p-2">
+                    <div class="col-1">'.$n--.'</div>
+                    <div class="col-3">'.$row["aty"].'</div>
+                    <div class="col-7">'.$row["text"].'...</div>
+                    <div class="col-1"><button class="btn btn-danger" onclick="deletes('.$row["id"].',1)" style="font-size:18px;">&times;</button></div>
+                  </div>
+                </div></li>
+              ';
+            } while ($row = mysqli_fetch_array($r));
+          }
+    }
+    if ($x == 9) {
+        $r = $conn -> query("SELECT * FROM otzyv WHERE ifElse = '' ORDER BY id DESC");
+        echo mysqli_num_rows($r);
+    }
+    if ($x == 10) {
+        $r = $conn -> query("SELECT * FROM klient ORDER BY id DESC");
+        echo "<div class='text-center col-6' style='border-bottom:1px solid gray;'>Заказы:</div><div style='border-bottom:1px solid gray' class='col-6 text-center'> ",mysqli_num_rows($r),"</div> ";
+        $r = $conn -> query("SELECT * FROM tovar");
+        $hg = mysqli_num_rows($r);
+        $r = $conn -> query("SELECT * FROM tovar_pizza ORDER BY id DESC");
+        echo "<div class='text-center col-6' style='border-bottom:1px solid gray;'>Товары:</div><div style='border-bottom:1px solid gray' class='col-6 text-center'> ",(mysqli_num_rows($r)+$hg),"</div> ";
+        $r = $conn -> query("SELECT * FROM otzyv ORDER BY id DESC");
+        echo "<div class='text-center col-6' style='border-bottom:1px solid gray;'>Отзывы:</div><div style='border-bottom:1px solid gray' class='col-6 text-center'> ",mysqli_num_rows($r),"</div> ";
     }
 ?>

@@ -80,6 +80,8 @@
     </div>
     <script src="../../js/jquery.js"></script>
     <script>
+        document.querySelector("#menuName3").style.color = "green";
+        document.querySelector("#menuName3").style.borderBottom = "2px solid red";
         function select() {
             let g = document.querySelector("#kol").value;
             let s = "";
@@ -165,8 +167,8 @@
             }
         }
         function success() {
-            let x = "<?echo $t;?>";
-            let y = "<?echo $id;?>";
+            let x = "<?php echo $t;?>";
+            let y = "<?php echo $id;?>";
             if (x === "6") {
                     let h = document.querySelector("#kol").value;
                     let name = document.querySelector("#name").value

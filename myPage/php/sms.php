@@ -50,6 +50,7 @@
             <?php
             $r = $conn -> query("SELECT * FROM zakazy WHERE id = '$id'");
             $n = mysqli_num_rows($r);
+            $result = 0;
             if ($n) {
                 $row = mysqli_fetch_array($r);
                 $count = 0;
@@ -67,6 +68,15 @@
                 ';
                 do {
                     $count++;
+                    $fer = $row["sena"];
+                    $a = "";$b = 0;
+                    for ($i = 0; $i < strlen($fer); $i++) {
+                      for($j = 0; $j < 10; $j++) {
+                        if ($j."" == $fer[$i]) $a = $a.''.$fer[$i];
+                      } 
+                    }
+                    $b = $a;
+                    $result += $b * $row["kol"];
                 echo'
                    <tbody>
                         <tr>
@@ -81,9 +91,29 @@
                 ';
                 } while ($row = mysqli_fetch_array($r));
             }
+            // $mas = array ();
+            echo '<tr><td colspan="6" class="text-center"><b style="font-size:25px">Всего сумма : '.$result.' <button class="btn btn-danger" style="margin-left:50px; font-size:25px" onclick="deletes('.$id.')">&times;</button></b></td></tr>';
             ?>
         </table>
         </div>
     </div>
+    <script src="../../js/jquery.js"></script>
+    <script>
+      document.querySelector("#menuName1").style.color = "green";
+      document.querySelector("#menuName1").style.borderBottom = "2px solid red";
+      function deletes (x) {
+        let y = 6;
+            $.ajax({
+                url:'./delete.php',
+                type:'POST',
+                cache:false,
+                data:{x,y},
+                dataType:'html',
+                success: function (data) {
+                  window.location.replace("../");
+                }
+            });
+      }
+    </script>
   </body>
 </html>

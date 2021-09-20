@@ -46,6 +46,10 @@
           </section>
     </div>
     <script src="./js/script.js"></script>
+    <script>
+        document.querySelector("#menuName2").style.color = "green";
+        document.querySelector("#menuName2").style.borderBottom = "2px solid red";
+    </script>
   </body>
 </html>
 <!-- 

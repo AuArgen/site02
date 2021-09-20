@@ -8,8 +8,7 @@
         <a href="#speciality">Категория</a>
         <a href="#popular">популярный</a>
         <a href="#gallery">галерея</a>
-        <a href="#review">review</a>
-        <a href="#order">order</a>
+        <a href="#review">отзывы</a>
     </nav>
     <div class="cart" onclick = "cart()">
         <!-- <img src="./images/empty-cart.png" alt="t" width="40" height="30">0 -->

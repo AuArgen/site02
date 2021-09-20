@@ -30,5 +30,8 @@
         else unlink('../.'.$m[5]);
         $conn -> query("UPDATE tovar_pizza SET aty = '$m[0]', text = '$m[1]', image = '$m[4]',kol = '$m[6]',sena1 = '$m[7]',sena2 = '$m[8]',sena3 = '$m[9]', gram1 = '$m[10]', gram2 = '$m[11]', gram3 = '$m[12]' WHERE id = '$m[3]'");
         echo 1;
+    } else if ($_POST["n"] == 4) {
+        $x = $_POST["x"];
+        $conn -> query("UPDATE otzyv SET ifElse = '1' WHERE id = '$x'");
     }
 ?>
