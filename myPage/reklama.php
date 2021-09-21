@@ -19,8 +19,8 @@
     <?php include("./menu.php");?>
     <div class="home ">
       <br>  
-      <form action="" class="form-control container text-center">
-          <h2>Реклама</h2>
+      <form action="" class="form-control container text-center" method="post">
+          <h1>Реклама</h1>              
           <?php
             include("./php/connect.php");
             $r = $conn -> query("SELECT * FROM reklama WHERE id = '1'");
@@ -28,50 +28,98 @@
                 $row = mysqli_fetch_array($r);
                 do {
                     echo '
-                        <a href = "./php/reklama.php?id='.$row["id"].'">
                             <div class="text-center justify-content-center" width="300">
-                                <div class="p-2 img" width="280">
-                                    <img src = ".'.$row["image"].'" width = "280" alt="img"/>
-                                </div>
                                 <div  width="290">
-                                    <h2 class="p-2" width="280">'.$row["theme"].'</h2>
+                                    <h2 class="p-2" width="280"><input value="'.$row["theme"].'" name = "theme" required placeholder="Enter theme for reklama" class="form-control" style="font-size:22px"></h2>
                                 </div>
-                                <div class="p-2 text-center" style="display:flex; justify-content:center; color:red">
-                                    <h2 class="p-2 text-center" style=" max-width:400px" width="280">'.$row["text2"].'</h2>
+                                <div class="p-2 text-center">
+                                    <h2 class="p-2 text-center"><textarea name="text" rows="7" cols="50" required placeholder="Enter text for reklama" class="form-control" style="font-size:22px">'.$row["text2"].'</textarea></h2>
                                 </div>
+                                <p><input type="submit" class="btn btn-success" style="font-size:22px" name="save" value="Сохранить"></p>
                             </div>
-                        </a>
                     ';
                 } while ($row = mysqli_fetch_array($r));
             }
-            $r = $conn -> query("SELECT * FROM reklama WHERE id != '1'");
-            if (mysqli_num_rows($r)) {
-                $row = mysqli_fetch_array($r);
-                echo '<hr><h2>Подарки</h2><div style="display:flex; justify-content:center">';
-                do {
-                    echo '
-                        <a href = "./php/reklama.php?id='.$row["id"].'">
-                            <div class="text-center p-5" style="border:1px solid brown; margin-left:5px" width="300" >
-                                <div class="p-2 img" width="280">
-                                    <img src = ".'.$row["image"].'" width = "280" alt="img"/>
-                                </div>
-                                <div  width="290">
-                                    <h2 class="p-2" width="280">'.$row["aty"].'</h2>
-                                </div>
-                                <div class="p-2 text-center" style="display:flex; justify-content:center; color:red">
-                                    <h2 class="p-2 text-center" style=" max-width:280px" width="280">'.$row["text"].'</h2>
-                                </div>
-                            </div>
-                        </a>
+            if (isset($_POST["save"])) {
+                $a = $_POST["theme"];
+                $b = $_POST["text"];
+                $conn -> query("UPDATE reklama SET theme = '$a', text2 = '$b' WHERE id = '1'");
+                 echo'
+                    <script>
+                        function Load() {
+                            window.location.replace("./reklama.php");
+                        }
+                        setTimeout(Load,10);
+                    </script>
                     ';
-                } while ($row = mysqli_fetch_array($r));
             }
           ?>
-      </form>
+          <hr>
+         <br><label style="font-size:18px" required for="file" class="" style= "cursor:pointer"><i style= "cursor:pointer" class="fa fa-picture-o btn btn-warning" aria-hidden="true"> Добавить картинки </i>  </label> <div id="1"></div> <input type="file" name="file_img" id="file" class="form-control" style="visibility:hidden" onchange = "getImagePreview()">
+        <table class="table">
+            <?php
+                $r = $conn -> query("SELECT * FROM reklama WHERE image != '' ORDER BY id DESC");
+                if (mysqli_num_rows($r)) {
+                    $row = mysqli_fetch_array($r);
+                    $count = 0;
+                    do {
+                        $count++;
+                        echo '
+                                <tr style="font-size:20px">
+                                      <th scope="row">'.$count.'</th>
+                                      <td><img src = ".'.$row["image"].'" alt="img" width="200"></td>
+                                      <td><button class="btn btn-danger" style="font-size:25px" onclick="deletes('.$row["id"].')">&times;</button></td>
+                                </tr>
+                        ';
+                    } while ($row = mysqli_fetch_array($r));
+                }
+            ?>
+        </table>
+    </form>
     </div>
+    <script src="../script/jquery-1.11.1.min.js"></script>
     <script>
         document.querySelector("#menuName6").style.color = "green";
         document.querySelector("#menuName6").style.borderBottom = "2px solid red";
+        function getImagePreview()
+      {
+        // var image=URL.createObjectURL(event.target.files[0]);
+        var imagediv= document.querySelector('label');
+        // var newimg=document.createElement('img');
+        let x = new FormData();
+        x.append("file",document.getElementById('file').files[0]);
+        // console.log(x);
+        // imagediv.innerHTML='';
+        // newimg.src=image;
+        // newimg.width="300";
+        // imagediv.appendChild(newimg);
+        // let x = 0;
+        $.ajax({
+          url:'./php/image2.php',
+          type:'POST',
+          cache:false,
+          data:x,
+          contentType:false,
+          processData:false,
+          dataType:'html',
+          success: function (data) {
+            window.location.replace("./reklama.php");
+          }
+        });
+      }
+      function deletes (x) {
+        let y = 7;
+            $.ajax({
+                url:'./php/delete.php',
+                type:'POST',
+                cache:false,
+                data:{x,y},
+                dataType:'html',
+                success: function (data) {
+                  window.location.replace("./reklama.php");
+                }
+            });
+      }
     </script>
   </body>
 </html>

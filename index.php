@@ -6,6 +6,7 @@
     <title>complete responsive food website design tutorial </title>
 
     <!-- font awesome cdn link  -->
+        <link rel="stylesheet" href="./css/cssfile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- custom css file link  -->
@@ -26,12 +27,25 @@
 <section class="home" id="home">
 
     <div class="content">
-        <h3>food made with love</h3>
-        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas accusamus tempore temporibus rem amet laudantium animi optio voluptatum. Natus obcaecati unde porro nostrum ipsam itaque impedit incidunt rem quisquam eos!</p>
+            <?php 
+            include("./myPage/php/connect.php");
+                $r = $conn -> query("SELECT * FROM reklama WHERE theme != ''");
+                if (mysqli_num_rows($r)) {
+                    $row = mysqli_fetch_array($r);
+                    do {
+                        echo'
+                            <h3>'.$row["theme"].'</h3>
+                            <p>'.$row["text2"].'</p>
+                        ';
+                    } while($row = mysqli_fetch_array($r));
+                }
+            ?>
     </div>
 
     <div class="image">
-        <img src="images/home-img.png" alt="">
+        <?php 
+            include("./slider.php");
+        ?>
     </div>
 
 </section>
@@ -47,7 +61,6 @@
     <div class="box-container row">
 
         <?php
-                include("./myPage/php/connect.php");
                 $mas = array();
                 $r = $conn -> query("SELECT * FROM type");
                 if (mysqli_num_rows($r)) {
@@ -229,7 +242,7 @@
                 do {
                 echo'
                    <div class="box">
-                        <img src="images/imgAva.png" alt="">
+                        <img src="images/imgAva.png" alt="" width="100" height="100">
                         <h3>'.$row["aty"].'</h3>
                         <div class="stars">
                             <i class="fas fa-star"></i>

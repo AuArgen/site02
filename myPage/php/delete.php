@@ -55,4 +55,8 @@
         $conn -> query("DELETE FROM klient WHERE id = '$x'");
         $conn -> query("DELETE FROM zakazy WHERE id = '$x'");
     }
+    if ($y == 7) {
+        $x = $_POST["x"];
+        $conn -> query("DELETE FROM reklama WHERE id = '$x'");
+    }
 ?> 
