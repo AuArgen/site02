@@ -1,5 +1,7 @@
 const myslide = document.querySelectorAll('.myslide'),
-	  dot = document.querySelectorAll('.dot');
+	dot = document.querySelectorAll('.dot'),
+	content = document.querySelectorAll('.content');
+	console.log(content)
 let counter = 1;
 slidefun(counter);
 
@@ -28,6 +30,7 @@ function slidefun(n) {
 	let i;
 	for(i = 0;i<myslide.length;i++){
 		myslide[i].style.display = "none";
+		content[i].style.display = "none";
 	}
 	for(i = 0;i<dot.length;i++) {
 		dot[i].className = dot[i].className.replace(' active', '');
@@ -39,5 +42,6 @@ function slidefun(n) {
 	   counter = myslide.length;
 	   }
 	myslide[counter - 1].style.display = "block";
+	content[counter - 1].style.display = "block";
 	dot[counter - 1].className += " active";
 }

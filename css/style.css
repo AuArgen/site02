@@ -561,6 +561,11 @@ header .navbar a:hover{
   width:100%;
 }
 
+iframe {
+  width:100%;
+  height:200vh;
+}
+
 .loader-container.fade-out{
   top:-120%;
 }

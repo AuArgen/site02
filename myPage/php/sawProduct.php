@@ -203,7 +203,7 @@
             $row = mysqli_fetch_array($r);
             do {
              echo'
-                <a href= "./php/sms.php?id='.$row["id"].'">
+                <a href= "./php/sms.php?id='.$row["id"].'&sd=1">
                   <div class="row p-2" style="border-bottom:1px solid gray; color:black; ">
                     <div class="col-4" style="font-size:18px">Заказ №  '.$n--.' <span style="color:red;font-weight: bold;">Не обработан</span></div>
                   </div>
@@ -225,7 +225,7 @@
             $row = mysqli_fetch_array($r);
             do {
               echo'
-                <a href= "./php/sms.php?id='.$row["id"].'">
+                <a href= "./php/sms.php?id='.$row["id"].'&sd=0">
                   <div class="row p-2" style="border-bottom:1px solid gray; color:black; ">
                     <div class="col-4" style="font-size:18px">Заказ №  '.$nn--.' <span style="color:green;font-weight: bold;">Обработан</span></div>
                   </div>

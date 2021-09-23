@@ -1,9 +1,25 @@
+<?php 
+            include("./myPage/php/connect.php");
+                $r = $conn -> query("SELECT * FROM reklama ORDER BY id DESC");
+                if (mysqli_num_rows($r)) {
+                    $row = mysqli_fetch_array($r);
+                    do {
+                        echo'<div class="content">
+                            <h3>'.$row["theme"].'</h3>
+                            <p>'.$row["text2"].'</p>
+                            </div>
+                        ';
+                    } while($row = mysqli_fetch_array($r));
+                }
+            ?>
+
+    <div class="image">
 
     <div class="slider">
 		<!-- fade css -->
 		<?php
-			include("./myPage/php/connect.php");
-                $r = $conn -> query("SELECT * FROM reklama WHERE image != '' ORDER BY id DESC");
+
+                $r = $conn -> query("SELECT * FROM reklama ORDER BY id DESC");
                 if (mysqli_num_rows($r)) {
                     $row = mysqli_fetch_array($r);
                     $count = 0;
@@ -24,7 +40,7 @@
 				}
 				echo'</div>';
         ?>
-
+</div>
 		
 		<!-- <div class="myslide fade">
 			<img src="./images/img2.jpg" style="width: 100%; max-height: 60%;">

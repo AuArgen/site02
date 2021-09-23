@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>complete responsive food website design tutorial </title>
+    <title>Sushitaun </title>
 
     <!-- font awesome cdn link  -->
         <link rel="stylesheet" href="./css/cssfile.css">
@@ -15,6 +15,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script> -->
     <script src="https://use.fontawesome.com/addbab05b6.js"></script>
+    <style>
+        iframe {
+            width:100%;height:200vh;
+        }
+        @media only screen and (max-width:500px;) {
+            iframe {
+                width:100%;
+                height:400vh;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -26,28 +37,11 @@
 
 <section class="home" id="home">
 
-    <div class="content">
+    
             <?php 
-            include("./myPage/php/connect.php");
-                $r = $conn -> query("SELECT * FROM reklama WHERE theme != ''");
-                if (mysqli_num_rows($r)) {
-                    $row = mysqli_fetch_array($r);
-                    do {
-                        echo'
-                            <h3>'.$row["theme"].'</h3>
-                            <p>'.$row["text2"].'</p>
-                        ';
-                    } while($row = mysqli_fetch_array($r));
-                }
+                // include("./myPage/php/connect.php");
+                include("./slider.php");
             ?>
-    </div>
-
-    <div class="image">
-        <?php 
-            include("./slider.php");
-        ?>
-    </div>
-
 </section>
 
 <!-- home section ends -->
@@ -228,11 +222,11 @@
 <!-- gallery section ends -->
 
 <!-- review section starts  -->
-
 <section class="review" id="review">
 
-    <h1 class="heading"> новый <span>отзывы</span> </h1>
-
+    <h1 class="heading"> о <span>нас</span> </h1>
+<iframe src="./o-nas.php" frameborder="0" style=""></iframe>
+<h1 class="heading"> новый <span>отзывы</span> </h1>
     <div class="box-container">
         <?php
             $r = $conn -> query("SELECT * FROM otzyv WHERE ifElse = '1' ORDER BY id DESC"); 
@@ -262,6 +256,7 @@
 </section>
 
 <!-- review section ends -->
+
 
 <!-- order section starts  -->
 
@@ -294,7 +289,7 @@
 
 <!-- footer section  -->
 
-<?include("footer.php");?>
+<?php include("footer.php");?>
 
 
 
@@ -348,6 +343,7 @@
                 dataType:'html',
                 success: function (data) {
                     document.querySelector(".grbox").innerHTML = data;
+					document.querySelector(".buttonDale").style.display = "none";
                 }
             });
     }
@@ -612,6 +608,7 @@
             // localStorage.clear();
             alert ("Вы успешно оформили заказ ... Спасибо");
             sawCart();
+			window.location.replace("./");
         }
     }
     // 
@@ -660,6 +657,7 @@
                 localStorage.setItem("My_Site_Argen_Cart_Arrays_kol",JSON.stringify(kol));
                 localStorage.setItem("My_Site_Argen_Cart_Arrays_id",JSON.stringify(id));
                 sawCart();
+				
             }
     } 
     function inpt (x,z) {

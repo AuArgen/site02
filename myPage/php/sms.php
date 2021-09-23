@@ -23,8 +23,22 @@
             <?php
             include("./connect.php");
             $id = $_GET["id"];
+            $sd = $_GET["sd"];
+            if ($sd == 1) {
+              echo'
+                  <br>
+                  <form action="" method="post" >
+                    <i class="btn btn-success fa fa-check-square-o" aria-hidden="true"><input class="btn btn-success" style="font-size:20px" type="submit" name="sd" value="Сделано + "></i>
+                    <br>
+                 </form>
+                  <br>
+                ';
+            }
+            if (isset($_POST["sd"])) {
+              $conn -> query("UPDATE klient SET reading = '' WHERE id = '$id'");
+            }
             $r = $conn -> query("SELECT * FROM klient WHERE id = '$id'");
-            $conn -> query("UPDATE klient SET reading = '' WHERE id = '$id'");
+            
              $n = mysqli_num_rows($r);
              $radio = "";
           if ($n) {
